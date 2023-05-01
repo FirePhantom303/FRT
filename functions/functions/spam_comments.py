@@ -10,7 +10,7 @@ class Function(Base):
     __function_name__ = 'Spam comments'
 
     def __init__(self, accounts: Field(Types.ACCOUNTS, label_name='Accounts'),
-                 posts: Field(Types.INPUTS, label_name='Posts', placeholder='https://t.me/simple_post/22121, https://t.me/-10013203215/22121'),
+                 posts: Field(Types.INPUTS, label_name='Posts', pattern = r'https:\/\/t\.me\/(\w+\/\d+|\-\d+\/\d+)', placeholder='https://t.me/simple_post/22121, https://t.me/-10013203215/22121'),
                  comments: Field(Types.TEXTAREA, label_name='Comments',
                                  placeholder='Hello world!'),
                  settings: Field(Types.SETTINGS, label_name='Settings')):
