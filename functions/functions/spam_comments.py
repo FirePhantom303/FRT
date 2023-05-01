@@ -3,7 +3,6 @@ from pyrogram.errors import MsgIdInvalid, ChatWriteForbidden, UserBannedInChanne
 from functions.base_function import Base
 from functions.utils import Field, Types
 
-
 class Function(Base):
     """Spam comments to post"""
 
