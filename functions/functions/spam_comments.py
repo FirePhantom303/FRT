@@ -3,6 +3,7 @@ from pyrogram.errors import MsgIdInvalid, ChatWriteForbidden, UserBannedInChanne
 from functions.base_function import Base
 from functions.utils import Field, Types
 
+
 class Function(Base):
     """Spam comments to post"""
 
@@ -10,7 +11,9 @@ class Function(Base):
     __function_name__ = 'Spam comments'
 
     def __init__(self, accounts: Field(Types.ACCOUNTS, label_name='Accounts'),
-                 posts: Field(Types.INPUTS, label_name='Posts', pattern = r'.*'', placeholder='https://t.me/simple_post/22121, https://t.me/-10013203215/22121'),
+                 posts: Field(Types.INPUTS, label_name='Posts',
+                              pattern=r'^(https://t.me/\\w{5,32}/[0-9]{1,}|https://t.me/\-\w{5,32}/[0-9]{1,})$',
+                              placeholder='https://t.me/simple_post/22121'),
                  comments: Field(Types.TEXTAREA, label_name='Comments',
                                  placeholder='Hello world!'),
                  settings: Field(Types.SETTINGS, label_name='Settings')):
@@ -54,3 +57,4 @@ class Function(Base):
             if not (await self._try_send_comment(post, client, account)):
                 break
             await self._wait(post != self._posts[-1])
+
