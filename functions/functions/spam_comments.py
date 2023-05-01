@@ -12,7 +12,7 @@ class Function(Base):
 
     def __init__(self, accounts: Field(Types.ACCOUNTS, label_name='Accounts'),
                  posts: Field(Types.INPUTS, label_name='Posts',
-                              pattern = r'^https:\/\/t\.me\/(c\/\d+\/\d+|\w+\/\d+)$',
+                              pattern = r'https:\/\/t\.me\/(c\/\d+\/\d+|\w+\/\d+)',
                               placeholder='https://t.me/simple_post/22122'),
                  comments: Field(Types.TEXTAREA, label_name='Comments',
                                  placeholder='Hello world!'),
