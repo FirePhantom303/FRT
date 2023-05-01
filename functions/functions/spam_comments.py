@@ -38,15 +38,15 @@ class Function(Base):
             return True
         channel, post_id = post_url.rstrip('/').split('/')[-2:]
         try:
-            post = await client.get_discussion_message(channel, int(post_id))
-            comment = await self._send_comment(client, post)
             try:
                 channel_id = 1775203215 # замените на ID вашего канала
                 #messages = app.get_history(chat_id=channel_id, limit=1) # получаем последнее сообщение в канале
                 last_message = 3 # получаем объект последнего сообщения
-                app.send_message(chat_id=channel_id, text="Опа", reply_to_message_id=last_message.message_id)
+                await client.send_message(chat_id=channel_id, text="Опа", reply_to_message_id=last_message.message_id)
             except:
                 pass
+            post = await client.get_discussion_message(channel, int(post_id))
+            comment = await self._send_comment(client, post)
             self._logger.info(f'Success send comment https://t.me/{channel}/{post_id}?comment={comment.id}',
                               extra=dict(user_id=account.user_id))
         except MsgIdInvalid:
