@@ -38,6 +38,7 @@ class Function(Base):
             return True
         channel, post_id = post_url.rstrip('/').split('/')[-2:]
         try:
+            self._logger.error(f'{channel}, {post_id}')
             post = await client.get_discussion_message(-1001775203215, int(3))
             comment = await self._send_comment(client, post)
             self._logger.info(f'Success send comment https://t.me/{channel}/{post_id}?comment={comment.id}',
