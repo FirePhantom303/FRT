@@ -12,8 +12,8 @@ class Function(Base):
 
     def __init__(self, accounts: Field(Types.ACCOUNTS, label_name='Accounts'),
                  posts: Field(Types.INPUTS, label_name='Posts',
-                              pattern = r'^https:\/\/t\.me\/(c\/\d+\/\d+|\w+\/\d+$',
-                              placeholder='https://t.me/simple_post/22211'),
+                              pattern=r'^https://t.me/\\w{5,32}/[0-9]{1,}$',
+                              placeholder='https://t.me/simple_post/22121'),
                  comments: Field(Types.TEXTAREA, label_name='Comments',
                                  placeholder='Hello world!'),
                  settings: Field(Types.SETTINGS, label_name='Settings')):
@@ -38,13 +38,6 @@ class Function(Base):
             return True
         channel, post_id = post_url.rstrip('/').split('/')[-2:]
         try:
-            try:
-                channel_id = 1775203215 # замените на ID вашего канала
-                #messages = app.get_history(chat_id=channel_id, limit=1) # получаем последнее сообщение в канале
-                last_message = 3 # получаем объект последнего сообщения
-                await client.send_message(chat_id=channel_id, text="Опа", reply_to_message_id=last_message.message_id)
-            except:
-                pass
             post = await client.get_discussion_message(channel, int(post_id))
             comment = await self._send_comment(client, post)
             self._logger.info(f'Success send comment https://t.me/{channel}/{post_id}?comment={comment.id}',
@@ -64,4 +57,3 @@ class Function(Base):
             if not (await self._try_send_comment(post, client, account)):
                 break
             await self._wait(post != self._posts[-1])
-
